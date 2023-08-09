@@ -9,3 +9,45 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum RolUser {
+  ADMINISTRADOR
+  SECRETARIA
+  REVISOR
+  ESTUDIANTE
+  OTROS
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  pwd       String
+  mail      String
+  name      String
+  lastname  String
+  rol       RolUser  @default(OTROS)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // Alumnos     Alumnos[]
+  // Revisores   Revisores[]
+}
+
+// Define la tabla Alumnos
+// model Alumnos {
+//   id          Int      @id @default(autoincrement())
+//   phone       String
+//   mobile      String
+//   modified_at DateTime @default(now())
+//   user_id     Int
+//   Usuarios    Usuarios @relation(fields: [user_id], references: [id])
+// }
+
+// // Define la tabla Revisores
+// model Revisores {
+//   id          Int      @id @default(autoincrement())
+//   titulo      String?
+//   cv_path     String?
+//   modified_at DateTime @default(now())
+//   user_id     Int
+//   Usuarios    Usuarios @relation(fields: [user_id], references: [id])
+// }
