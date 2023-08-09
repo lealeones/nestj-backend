@@ -1,3 +1,26 @@
+## Step by step how the base was created
+```bash
+# 1° Step
+$ nest new tfm-backend
+
+# 2° Step
+$ npm i prisma --save-dev
+$ npm i @prisma/client --save-dev
+$ npx prisma init
+
+# 3° Step
+$ npm i @nestjs/graphql @nestjs/apollo @apollo/server graphql
+
+# 4° Step
+$ npm i --save class-validator class-transformer
+
+# 5° Step
+# Create and configure docker-compose.yml
+$ sudo docker compose up -d
+$ npm run prisma:apply
+```
+
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
