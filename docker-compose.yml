@@ -1,22 +1,22 @@
 version: '3'
 services:
-  postgres_tfm_app:
+  postgres_server_app:
     image: postgres
     # restart: always
-    container_name: postgres_tfm_app
+    container_name: postgres_server_app
     ports:
       - 5433:5432
     environment:
-      POSTGRES_DB: tfm_app_db
+      POSTGRES_DB: prueba_db
       POSTGRES_USER: prisma
       POSTGRES_PASSWORD: prisma123
     volumes:
       - ./prisma/tmp/postgres:/var/lib/postgresql/data
-  adminer_tfm_app:
+  adminer_server_app:
     image: adminer
     # restart: always
-    container_name: adminer_tfm_app
+    container_name: adminer_server_app
     ports:
       - 666:8080
     depends_on:
-      - postgres_tfm_app
+      - postgres_server_app

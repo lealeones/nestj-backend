@@ -18,9 +18,42 @@ enum RolUser {
   OTROS
 }
 
+model ContactLocation {
+  id         Int      @id @default(autoincrement())
+  location   Location @relation(fields: [idLocation], references: [id])
+  idLocation Int      @unique
+  telWsp     String
+  tel        String
+  email      String
+  web        String
+  linkFb     String
+  linkIg     String
+  coord      Int[]
+}
+
+model FiltersLocation {
+  id         Int      @id @default(autoincrement())
+  location   Location @relation(fields: [idLocation], references: [id])
+  idLocation Int      @unique
+  start      Int
+  ranking    Int
+}
+
+model Location {
+  title       String
+  id          Int              @id @default(autoincrement())
+  description String
+  image       String?
+  tipe        String
+  url         String?
+  mediaVideo  String?
+  filters     FiltersLocation?
+  contact     ContactLocation?
+}
+
 model User {
   id        Int      @id @default(autoincrement())
-  username  String   @unique
+  username  String
   pwd       String
   mail      String
   name      String
@@ -31,23 +64,3 @@ model User {
   // Alumnos     Alumnos[]
   // Revisores   Revisores[]
 }
-
-// Define la tabla Alumnos
-// model Alumnos {
-//   id          Int      @id @default(autoincrement())
-//   phone       String
-//   mobile      String
-//   modified_at DateTime @default(now())
-//   user_id     Int
-//   Usuarios    Usuarios @relation(fields: [user_id], references: [id])
-// }
-
-// // Define la tabla Revisores
-// model Revisores {
-//   id          Int      @id @default(autoincrement())
-//   titulo      String?
-//   cv_path     String?
-//   modified_at DateTime @default(now())
-//   user_id     Int
-//   Usuarios    Usuarios @relation(fields: [user_id], references: [id])
-// }
