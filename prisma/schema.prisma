@@ -18,6 +18,14 @@ enum RolUser {
   OTROS
 }
 
+model File {
+  id           Int     @id @default(autoincrement())
+  fileName     String
+  originalName String
+  fileHash     String
+  dateUpload   DateTime?
+}
+
 model ContactLocation {
   id         Int      @id @default(autoincrement())
   location   Location @relation(fields: [idLocation], references: [id])
@@ -40,8 +48,8 @@ model FiltersLocation {
 }
 
 model Location {
-  title       String
   id          Int              @id @default(autoincrement())
+  title       String
   description String
   image       String?
   tipe        String

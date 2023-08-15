@@ -2,6 +2,20 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Location {
+  """Location ID"""
+  id: Int!
+
+  """title"""
+  title: String!
+
+  """description"""
+  description: String!
+
+  """tipe"""
+  tipe: String!
+}
+
 type User {
   """User ID"""
   id: Int!
@@ -28,15 +42,63 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type File {
+  """User ID"""
+  id: Int!
+
+  """fileName"""
+  fileName: String!
+
+  """originalName"""
+  originalName: String!
+
+  """fileHash"""
+  fileHash: String!
+  dateUpload: DateTime!
+}
+
 type Query {
+  location: [Location!]!
+  getLocation(id: Int!): Location!
   users: [User!]!
   user(id: Int!): User!
+  files: [File!]!
+  file(id: Int!): File!
 }
 
 type Mutation {
+  createLocation(createLocationInput: CreateLocationInput!): Location!
+  updateLocation(updateLocationInput: UpdateLocationInput!): Location!
+  removeLocation(id: Int!): Location!
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: Int!): User!
+  createFile(createFileInput: CreateFileInput!): File!
+  updateFile(updateFileInput: UpdateFileInput!): File!
+  removeFile(id: Int!): File!
+}
+
+input CreateLocationInput {
+  """title"""
+  title: String!
+
+  """description"""
+  description: String!
+
+  """tipe"""
+  tipe: String!
+}
+
+input UpdateLocationInput {
+  """title"""
+  title: String
+
+  """description"""
+  description: String
+
+  """tipe"""
+  tipe: String
+  id: Int!
 }
 
 input CreateUserInput {
@@ -55,5 +117,30 @@ input UpdateUserInput {
   name: String
   lastname: String
   rol: RolUser
+  id: Int!
+}
+
+input CreateFileInput {
+  """fileName"""
+  fileName: String!
+
+  """originalName"""
+  originalName: String!
+
+  """fileHash"""
+  fileHash: String!
+  dateUpload: DateTime!
+}
+
+input UpdateFileInput {
+  """fileName"""
+  fileName: String
+
+  """originalName"""
+  originalName: String
+
+  """fileHash"""
+  fileHash: String
+  dateUpload: DateTime
   id: Int!
 }
