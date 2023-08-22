@@ -2,6 +2,46 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Alumno {
+  """id"""
+  id: Int!
+
+  """phone"""
+  phone: String!
+
+  """mobile"""
+  mobile: String!
+
+  """userId"""
+  userId: Int!
+
+  """createdAt"""
+  createdAt: DateTime!
+
+  """updatedAt"""
+  updatedAt: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type File {
+  """User ID"""
+  id: Int!
+
+  """fileName"""
+  fileName: String!
+
+  """originalName"""
+  originalName: String!
+
+  """fileHash"""
+  fileHash: String!
+  dateUpload: DateTime!
+}
+
 type Location {
   """Location ID"""
   id: Int!
@@ -14,6 +54,90 @@ type Location {
 
   """tipe"""
   tipe: String!
+}
+
+type PreProject {
+  """id"""
+  id: Int!
+
+  """startDate"""
+  startDate: DateTime!
+
+  """endDate"""
+  endDate: DateTime!
+
+  """idProjectFina"""
+  idProjectFinal: Int!
+
+  """state"""
+  state: String!
+
+  """id"""
+  projectFinalId: Int!
+
+  """reviewInstanceId"""
+  reviewInstanceId: Int!
+}
+
+type ProjectFinal {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type ReviewInstance {
+  id: Int!
+  idFile: Int!
+  idProject: Int!
+  idPreProject: Int!
+  idReview: Int!
+  state: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Review {
+  """id"""
+  id: Int!
+
+  """state"""
+  state: String!
+
+  """descriptionStudent"""
+  descriptionStudent: String!
+
+  """descriptionInstitution"""
+  descriptionInstitution: String!
+
+  """reviewFileId"""
+  reviewFileId: Int!
+
+  """reviewInstanceId"""
+  reviewInstanceId: Int!
+
+  """reviewerId"""
+  reviewerId: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Revisor {
+  """id"""
+  id: Int!
+
+  """titulo"""
+  titulo: String!
+
+  """cv_path"""
+  cv_path: String!
+
+  """userId"""
+  userId: Int!
+
+  """createdAt"""
+  createdAt: DateTime!
+
+  """updatedAt"""
+  updatedAt: DateTime!
 }
 
 type User {
@@ -37,33 +161,25 @@ enum RolUser {
   OTROS
 }
 
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
-type File {
-  """User ID"""
-  id: Int!
-
-  """fileName"""
-  fileName: String!
-
-  """originalName"""
-  originalName: String!
-
-  """fileHash"""
-  fileHash: String!
-  dateUpload: DateTime!
-}
-
 type Query {
   location: [Location!]!
   getLocation(id: Int!): Location!
   users: [User!]!
+  login(loginInput: LoginInput!): User!
   user(id: Int!): User!
   files: [File!]!
   file(id: Int!): File!
+  alumno(id: Int!): Alumno!
+  revisor(id: Int!): Revisor!
+  projectFinal(id: Int!): ProjectFinal!
+  preProject(id: Int!): PreProject!
+  reviewInstance(id: Int!): ReviewInstance!
+  review(id: Int!): Review!
+}
+
+input LoginInput {
+  username: String!
+  pwd: String!
 }
 
 type Mutation {
@@ -76,6 +192,25 @@ type Mutation {
   createFile(createFileInput: CreateFileInput!): File!
   updateFile(updateFileInput: UpdateFileInput!): File!
   removeFile(id: Int!): File!
+  createAlumno(createAlumnoInput: CreateAlumnoInput!): Alumno!
+  createUserAlumno(createUserAlumno: CreateUserAlumno!): Alumno!
+  updateAlumno(updateAlumnoInput: UpdateAlumnoInput!): Alumno!
+  removeAlumno(id: Int!): Alumno!
+  createRevisor(createRevisorInput: CreateRevisorInput!): Revisor!
+  updateRevisor(updateRevisorInput: UpdateRevisorInput!): Revisor!
+  removeRevisor(id: Int!): Revisor!
+  createProjectFinal(createProjectFinalInput: CreateProjectFinalInput!): ProjectFinal!
+  updateProjectFinal(updateProjectFinalInput: UpdateProjectFinalInput!): ProjectFinal!
+  removeProjectFinal(id: Int!): ProjectFinal!
+  createPreProject(createPreProjectInput: CreatePreProjectInput!): PreProject!
+  updatePreProject(updatePreProjectInput: UpdatePreProjectInput!): PreProject!
+  removePreProject(id: Int!): PreProject!
+  createReviewInstance(createReviewInstanceInput: CreateReviewInstanceInput!): ReviewInstance!
+  updateReviewInstance(updateReviewInstanceInput: UpdateReviewInstanceInput!): ReviewInstance!
+  removeReviewInstance(id: Int!): ReviewInstance!
+  createReview(createReviewInput: CreateReviewInput!): Review!
+  updateReview(updateReviewInput: UpdateReviewInput!): Review!
+  removeReview(id: Int!): Review!
 }
 
 input CreateLocationInput {
@@ -142,5 +277,153 @@ input UpdateFileInput {
   """fileHash"""
   fileHash: String
   dateUpload: DateTime
+  id: Int!
+}
+
+input CreateAlumnoInput {
+  """phone"""
+  phone: String!
+
+  """mobile"""
+  mobile: String!
+
+  """userId"""
+  userId: Int!
+}
+
+input CreateUserAlumno {
+  username: String!
+  pwd: String!
+  mail: String!
+  name: String!
+  lastname: String!
+  rol: RolUser!
+
+  """phone"""
+  phone: String!
+
+  """mobile"""
+  mobile: String!
+
+  """userId"""
+  userId: Int!
+}
+
+input UpdateAlumnoInput {
+  """phone"""
+  phone: String
+
+  """mobile"""
+  mobile: String
+
+  """userId"""
+  userId: Int
+  id: Int!
+}
+
+input CreateRevisorInput {
+  """titulo"""
+  titulo: String!
+
+  """cv_path"""
+  cv_path: String!
+
+  """userId"""
+  userId: Int!
+}
+
+input UpdateRevisorInput {
+  """titulo"""
+  titulo: String
+
+  """cv_path"""
+  cv_path: String
+
+  """userId"""
+  userId: Int
+  id: Int!
+}
+
+input CreateProjectFinalInput {
+  """id"""
+  id: Int!
+
+  """title"""
+  title: String!
+
+  """summary"""
+  summary: String!
+
+  """keywords"""
+  keywords: [String!]!
+}
+
+input UpdateProjectFinalInput {
+  id: Int!
+
+  """title"""
+  title: String
+
+  """summary"""
+  summary: String
+
+  """keywords"""
+  keywords: [String!]
+}
+
+input CreatePreProjectInput {
+  """reviewInstanceId"""
+  reviewInstanceId: Int!
+}
+
+input UpdatePreProjectInput {
+  """reviewInstanceId"""
+  reviewInstanceId: Int
+  id: Int!
+}
+
+input CreateReviewInstanceInput {
+  """fileId"""
+  fileId: Int!
+
+  """projectId"""
+  projectId: Int!
+
+  """preProjectId"""
+  preProjectId: Int!
+}
+
+input UpdateReviewInstanceInput {
+  """fileId"""
+  fileId: Int
+
+  """projectId"""
+  projectId: Int
+
+  """preProjectId"""
+  preProjectId: Int
+  id: Int!
+}
+
+input CreateReviewInput {
+  """reviewFileId"""
+  reviewFileId: Int!
+
+  """reviewInstanceId"""
+  reviewInstanceId: Int!
+
+  """reviewerId"""
+  reviewerId: Int!
+}
+
+input UpdateReviewInput {
+  """reviewFileId"""
+  reviewFileId: Int
+
+  """reviewInstanceId"""
+  reviewInstanceId: Int
+
+  """reviewerId"""
+  reviewerId: Int
   id: Int!
 }

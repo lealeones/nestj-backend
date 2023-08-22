@@ -2,6 +2,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { User } from './entities/user.entity';
+import { LoginInput } from './dto/login-user.input';
 
 @Injectable()
 export class UserService {
@@ -42,4 +44,33 @@ export class UserService {
         })
     )
   }
+
+  async login(data: LoginInput) {
+
+    const res = await this.prismaService.user.findUnique({
+      where: {
+        username: data.username,
+      }
+    });
+    if (data.pwd === res.pwd) {
+      
+      const userLogin: User = {
+        id: res.id,
+        username: res.username,
+        pwd: '',
+        mail: res.mail,
+        name: res.name,
+        lastname: res.lastname,
+        rol: res.rol,
+        createdAt: res.createdAt,
+        updatedAt: res.updatedAt
+      }
+      
+      return userLogin
+    }
+    
+    throw new NotFoundException(`User does not exist!`);
+
+  }
+
 }

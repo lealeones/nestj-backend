@@ -7,8 +7,7 @@ import { PrismaService} from 'src/prisma/prisma.service';
 export class FilesService {
   constructor(private readonly prismaService: PrismaService) {}
   
-  
-  
+   
  async create(data: CreateFileInput) {
 
   const a = await this.prismaService.file.create({data})

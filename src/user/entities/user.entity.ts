@@ -30,3 +30,5 @@ export class User {
   //   // Alumnos     Alumnos[]
   //   // Revisores   Revisores[]
 }
+
+

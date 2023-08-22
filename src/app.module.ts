@@ -3,15 +3,24 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MulterModule } from '@nestjs/platform-express';
 import { join } from 'path';
+import { AlumnoModule } from './alumno/alumno.module';
+import { AlumnoService } from './alumno/alumno.service';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { LocationModule } from './location/location.module';
-import { UserModule } from './user/user.module';
 import { FilesModule } from './files/files.module';
+import { LocationModule } from './location/location.module';
+import { PreProjectModule } from './pre-project/pre-project.module';
+import { PrismaService } from './prisma/prisma.service';
+import { ProjectFinalModule } from './project-final/project-final.module';
+import { ReviewInstanceModule } from './review-instance/review-instance.module';
+import { ReviewModule } from './review/review.module';
+import { RevisorModule } from './revisor/revisor.module';
+import { UserModule } from './user/user.module';
+
 
 @Module({
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService,AlumnoService,PrismaService],
   imports: [
     MulterModule.register({
       dest: './upload',
@@ -23,7 +32,12 @@ import { FilesModule } from './files/files.module';
     LocationModule,
     UserModule,
     FilesModule,
-    
+    AlumnoModule,
+    RevisorModule,
+    ProjectFinalModule,
+    PreProjectModule,
+    ReviewInstanceModule,
+    ReviewModule, 
   ],
 
 })

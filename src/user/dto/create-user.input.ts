@@ -33,3 +33,5 @@ export class CreateUserInput {
   @Field(() => RolUser)
   rol: RolUser;
 }
+
+
