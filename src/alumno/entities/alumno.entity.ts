@@ -5,9 +5,9 @@ export class Alumno {
   @Field(() => Int, { description: 'id' })
   id: number;
   @Field(() => String, { description: 'phone' })
-  phone: number;
+  phone: string;
   @Field(() => String, { description: 'mobile' })
-  mobile: number;
+  mobile: string;
   @Field(() => Int, { description: 'userId' })
   userId: number;
   @Field(() => Date, { description: 'createdAt' })

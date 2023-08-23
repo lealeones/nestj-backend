@@ -1,7 +1,7 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { RevisorService } from './revisor.service';
 import { Revisor } from './entities/revisor.entity';
-import { CreateRevisorInput } from './dto/create-revisor.input';
+import { CreateRevisorInput, CreateUserRevisorInput } from './dto/create-revisor.input';
 import { UpdateRevisorInput } from './dto/update-revisor.input';
 
 @Resolver(() => Revisor)
@@ -12,6 +12,13 @@ export class RevisorResolver {
   async createRevisor(@Args('createRevisorInput') createRevisorInput: CreateRevisorInput) {
     return await this.revisorService.create(createRevisorInput);
   }
+
+  @Mutation(() => Revisor)
+  async createUserRevisor(@Args('createUserRevisorInput') createUserRevisorInput: CreateUserRevisorInput) {
+    return await this.revisorService.createUserRevisor(createUserRevisorInput);
+  }
+
+
 
   @Query(() => [Revisor], { name: 'revisor' })
   findAll() {

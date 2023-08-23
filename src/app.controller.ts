@@ -1,12 +1,16 @@
 import {
+  Bind,
   Body,
   Controller,
   Get,
+  HttpStatus,
   ParseFilePipeBuilder,
   Post,
+  Res,
   UploadedFile,
   UseInterceptors
 } from '@nestjs/common';
+import { Response } from 'express';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { AppService } from './app.service';
@@ -33,7 +37,6 @@ export class AppController {
 
   @Post('file')
   @UseInterceptors(
-
     FileInterceptor('application/pdf', {
       storage: diskStorage({
         destination: './src/upload',
@@ -42,8 +45,8 @@ export class AppController {
     }
     ),
   )
+  @Bind(UploadedFile())
   async uploadedFile(
-
     @UploadedFile(
       new ParseFilePipeBuilder()
         .addFileTypeValidator({ fileType: 'application/pdf' })
@@ -52,29 +55,30 @@ export class AppController {
         }),
     )
     file: Express.Multer.File,
-    @Body() body: any
+    @Body('dateUpload') dateUpload: any,
+    @Res() res: Response
     ) {
+try {
 
- 
+  const data:  CreateFileInput = {
+    fileHash:'pruebahash',
+    fileName: file.filename,
+    originalName: file.originalname
+  }
+  const idFile = await this.appService.fileToDB(data)
 
-    const data:  CreateFileInput = {
-      fileHash:'pruebahash',
-      fileName: file.filename,
-      originalName: file.originalname
-    }
-    const idFile = this.appService.fileToDB(data)
-
-
-
-    const response = {
-      originalname: file.originalname,
-      filename: file.filename,
-      value: body.dateUpload,
-      typefile:file.mimetype,
-      idFile: (await idFile).id
-    };
-
-    return response;
+  const response = {
+    originalname: file.originalname,
+    filename: file.filename,
+    value: dateUpload,
+    typefile:file.mimetype,
+    idFile: idFile.id
+  };
+  res.status(HttpStatus.OK).json(response);
+}
+catch (error) {
+  res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error })
+}
   }
 
 

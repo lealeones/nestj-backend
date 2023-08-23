@@ -197,6 +197,7 @@ type Mutation {
   updateAlumno(updateAlumnoInput: UpdateAlumnoInput!): Alumno!
   removeAlumno(id: Int!): Alumno!
   createRevisor(createRevisorInput: CreateRevisorInput!): Revisor!
+  createUserRevisor(createUserRevisorInput: CreateUserRevisorInput!): Revisor!
   updateRevisor(updateRevisorInput: UpdateRevisorInput!): Revisor!
   removeRevisor(id: Int!): Revisor!
   createProjectFinal(createProjectFinalInput: CreateProjectFinalInput!): ProjectFinal!
@@ -304,9 +305,6 @@ input CreateUserAlumno {
 
   """mobile"""
   mobile: String!
-
-  """userId"""
-  userId: Int!
 }
 
 input UpdateAlumnoInput {
@@ -330,6 +328,21 @@ input CreateRevisorInput {
 
   """userId"""
   userId: Int!
+}
+
+input CreateUserRevisorInput {
+  username: String!
+  pwd: String!
+  mail: String!
+  name: String!
+  lastname: String!
+  rol: RolUser!
+
+  """titulo"""
+  titulo: String!
+
+  """cv_path"""
+  cv_path: String!
 }
 
 input UpdateRevisorInput {

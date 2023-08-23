@@ -24,6 +24,7 @@ export class RevisorService {
         rol: data.rol,
       }
       const res = await this.prismaService.user.create({ data: dataUser })
+     if (res.id){
       const dataRevisor: CreateRevisorInput = {
         titulo: data.titulo,
         cv_path: data.cv_path,
@@ -31,9 +32,10 @@ export class RevisorService {
       }
       const revisor = await this.create(dataRevisor)
       return revisor
+     }
     }
     catch (error) {
-      console.log("error en crear revisor", error)
+      console.log("error en crear revisor CATCH", error)
     }
   };
 

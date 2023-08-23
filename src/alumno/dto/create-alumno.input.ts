@@ -9,8 +9,6 @@ export class CreateUserAlumno extends CreateUserInput  {
   phone: string;
   @Field(() => String, { description: 'mobile' })
   mobile: string;
-  @Field(() => Int, { description: 'userId' })
-  userId: number;
 }
 
 @InputType()

@@ -7,8 +7,6 @@ export class CreateUserRevisorInput extends CreateUserInput {
   titulo: number;
   @Field(() => String, { description: 'cv_path' })
   cv_path: number;
-  @Field(() => Int, { description: 'userId' })
-  userId: number;
 }
 
 
