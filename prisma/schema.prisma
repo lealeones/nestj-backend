@@ -10,6 +10,23 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Ticket {
+  id      Int    @id @default(autoincrement())
+  name    String
+  lasName String
+  dni     Int
+  trip    Trip   @relation(fields: [idTrip], references: [id]) // A Review Instance is associated with a Project
+  idTrip  Int
+}
+
+model Trip {
+  id        Int      @id @default(autoincrement())
+  startTime DateTime
+  title     String
+  dscr      String
+  Ticket    Ticket[]
+}
+
 enum RolUser {
   ADMINISTRADOR
   SECRETARIA

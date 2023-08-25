@@ -16,6 +16,8 @@ import { ReviewInstanceModule } from './review-instance/review-instance.module';
 import { ReviewModule } from './review/review.module';
 import { RevisorModule } from './revisor/revisor.module';
 import { UserModule } from './user/user.module';
+import { TripsModule } from './trips/trips.module';
+import { TicketsModule } from './tickets/tickets.module';
 
 
 @Module({
@@ -37,7 +39,9 @@ import { UserModule } from './user/user.module';
     ProjectFinalModule,
     PreProjectModule,
     ReviewInstanceModule,
-    ReviewModule, 
+    ReviewModule,
+    TripsModule,
+    TicketsModule, 
   ],
 
 })

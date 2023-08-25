@@ -161,6 +161,20 @@ enum RolUser {
   OTROS
 }
 
+type Trip {
+  """id"""
+  id: Int!
+
+  """startTime"""
+  startTime: DateTime!
+
+  """title"""
+  title: String!
+
+  """dscr"""
+  dscr: String!
+}
+
 type Query {
   location: [Location!]!
   getLocation(id: Int!): Location!
@@ -175,6 +189,8 @@ type Query {
   preProject(id: Int!): PreProject!
   reviewInstance(id: Int!): ReviewInstance!
   review(id: Int!): Review!
+  findTrips: [Trip!]!
+  trip(id: Int!): Trip!
 }
 
 input LoginInput {
@@ -212,6 +228,9 @@ type Mutation {
   createReview(createReviewInput: CreateReviewInput!): Review!
   updateReview(updateReviewInput: UpdateReviewInput!): Review!
   removeReview(id: Int!): Review!
+  createTrip(createTripInput: CreateTripInput!): Trip!
+  updateTrip(updateTripInput: UpdateTripInput!): Trip!
+  removeTrip(id: Int!): Trip!
 }
 
 input CreateLocationInput {
@@ -438,5 +457,28 @@ input UpdateReviewInput {
 
   """reviewerId"""
   reviewerId: Int
+  id: Int!
+}
+
+input CreateTripInput {
+  """startTime"""
+  startTime: DateTime!
+
+  """title"""
+  title: String!
+
+  """dscr"""
+  dscr: String!
+}
+
+input UpdateTripInput {
+  """startTime"""
+  startTime: DateTime
+
+  """title"""
+  title: String
+
+  """dscr"""
+  dscr: String
   id: Int!
 }
