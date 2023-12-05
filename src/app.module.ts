@@ -18,6 +18,7 @@ import { RevisorModule } from './revisor/revisor.module';
 import { UserModule } from './user/user.module';
 import { TripsModule } from './trips/trips.module';
 import { TicketsModule } from './tickets/tickets.module';
+import { PaymentModule } from './payment/payment.module';
 
 
 @Module({
@@ -41,7 +42,8 @@ import { TicketsModule } from './tickets/tickets.module';
     ReviewInstanceModule,
     ReviewModule,
     TripsModule,
-    TicketsModule, 
+    TicketsModule,
+    PaymentModule, 
   ],
 
 })

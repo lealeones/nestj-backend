@@ -175,6 +175,23 @@ type Trip {
   dscr: String!
 }
 
+type Ticket {
+  """id"""
+  id: Int!
+
+  """name"""
+  name: String!
+
+  """lasName"""
+  lasName: String!
+
+  """dni"""
+  dni: Int!
+
+  """idTrip"""
+  idTrip: Int!
+}
+
 type Query {
   location: [Location!]!
   getLocation(id: Int!): Location!
@@ -191,6 +208,8 @@ type Query {
   review(id: Int!): Review!
   findTrips: [Trip!]!
   trip(id: Int!): Trip!
+  tickets: [Ticket!]!
+  ticket(id: Int!): Ticket!
 }
 
 input LoginInput {
@@ -231,6 +250,9 @@ type Mutation {
   createTrip(createTripInput: CreateTripInput!): Trip!
   updateTrip(updateTripInput: UpdateTripInput!): Trip!
   removeTrip(id: Int!): Trip!
+  createTicket(createTicketInput: CreateTicketInput!): Ticket!
+  updateTicket(updateTicketInput: UpdateTicketInput!): Ticket!
+  removeTicket(id: Int!): Ticket!
 }
 
 input CreateLocationInput {
@@ -480,5 +502,34 @@ input UpdateTripInput {
 
   """dscr"""
   dscr: String
+  id: Int!
+}
+
+input CreateTicketInput {
+  """name"""
+  name: String!
+
+  """lasName"""
+  lasName: String!
+
+  """dni"""
+  dni: Int!
+
+  """idTrip"""
+  idTrip: Int!
+}
+
+input UpdateTicketInput {
+  """name"""
+  name: String
+
+  """lasName"""
+  lasName: String
+
+  """dni"""
+  dni: Int
+
+  """idTrip"""
+  idTrip: Int
   id: Int!
 }
