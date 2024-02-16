@@ -6,8 +6,8 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = "file:./dev.db"
 }
 
 model Ticket {
@@ -20,155 +20,21 @@ model Ticket {
 }
 
 model Trip {
+  id            Int          @id @default(autoincrement())
+  startTime     DateTime
+  title         String
+  dscr          String
+  Ticket        Ticket[]
+  Association   Association? @relation(fields: [associationId], references: [id])
+  associationId Int?
+}
+
+model Association {
   id        Int      @id @default(autoincrement())
-  startTime DateTime
-  title     String
-  dscr      String
-  Ticket    Ticket[]
-}
-
-enum RolUser {
-  ADMINISTRADOR
-  SECRETARIA
-  REVISOR
-  ESTUDIANTE
-  OTROS
-}
-
-model ReviewInstance {
-  id           Int         @id @default(autoincrement())
-  idFile       File?       @relation(fields: [fileId], references: [id])
-  fileId       Int?        @unique
-  state        String
-  project      Project?    @relation(fields: [projectId], references: [id]) // A Review Instance is associated with a Project
-  projectId    Int?        @unique
-  preProject   PreProject? @relation(fields: [preProjectId], references: [id]) // A Review Instance can be related to a Pre-Project
-  preProjectId Int?        @unique
-  Review       Review?
-}
-
-model Review {
-  id                     Int             @id @default(autoincrement())
-  state                  String
-  descriptionStudent     String?
-  descriptionInstitution String?
-  reviewFile             File?           @relation(fields: [reviewFileId], references: [id])
-  reviewFileId           Int             @unique
-  reviewer               Reviewer?       @relation(fields: [reviewerId], references: [id])
-  reviewerId             Int?            @unique
-  reviewInstance         ReviewInstance? @relation(fields: [reviewInstanceId], references: [id])
-  reviewInstanceId       Int?            @unique
-  createdAt              DateTime        @default(now())
-  updatedAt              DateTime        @updatedAt
-}
-
-model Project {
-  id             Int             @id @default(autoincrement())
-  startDate      DateTime
-  endDate        DateTime?
-  projectFinal   ProjectFinal?   @relation(fields: [projectFinalId], references: [id]) // Relation to Project Final
-  projectFinalId Int             @unique
-  ReviewInstance ReviewInstance?
-}
-
-model ProjectFinal {
-  id         Int         @id @default(autoincrement())
-  title      String
-  summary    String
-  keywords   String[]
-  date       DateTime
-  student    Student?    @relation(fields: [studentId], references: [id])
-  studentId  Int?
-  project    Project?
-  preProject PreProject?
-}
-
-model PreProject {
-  id             Int             @id @default(autoincrement())
-  startDate      DateTime
-  endDate        DateTime?
-  projectFinal   ProjectFinal?   @relation(fields: [projectFinalId], references: [id]) // Relation to Project Final
-  projectFinalId Int             @unique
-  ReviewInstance ReviewInstance?
-}
-
-model File {
-  id             Int              @id @default(autoincrement())
-  fileName       String
-  originalName   String
-  fileHash       String
-  dateUpload     DateTime?
-  ReviewInstance ReviewInstance[]
-  Review         Review?
-}
-
-model ContactLocation {
-  id         Int      @id @default(autoincrement())
-  location   Location @relation(fields: [idLocation], references: [id])
-  idLocation Int      @unique
-  telWsp     String
-  tel        String
-  email      String
-  web        String
-  linkFb     String
-  linkIg     String
-  coord      Int[]
-}
-
-model FiltersLocation {
-  id         Int      @id @default(autoincrement())
-  location   Location @relation(fields: [idLocation], references: [id])
-  idLocation Int      @unique
-  start      Int
-  ranking    Int
-}
-
-model Location {
-  id          Int              @id @default(autoincrement())
-  title       String
-  description String
-  image       String?
-  tipe        String
-  url         String?
-  mediaVideo  String?
-  filters     FiltersLocation?
-  contact     ContactLocation?
-}
-
-model User {
-  id        Int       @id @default(autoincrement())
-  username  String    @unique
-  pwd       String
-  mail      String
   name      String
-  lastname  String
-  rol       RolUser   @default(OTROS)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  student   Student?
-  reviewer  Reviewer?
-}
-
-// Define la tabla Alumnos
-model Student {
-  id           Int            @id @default(autoincrement())
-  phone        String
-  mobile       String
-  user         User           @relation(fields: [userId], references: [id])
-  userId       Int            @unique
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
-  ProjectFinal ProjectFinal[]
-}
-
-// // Define la tabla Revisores
-model Reviewer {
-  id        Int      @id @default(autoincrement())
-  titulo    String?
-  cv_path   String?
-  user      User     @relation(fields: [userId], references: [id])
-  userId    Int      @unique
+  dsrc      String
+  urlImage  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Review    Review[]
+  trips     Trip[]
 }
